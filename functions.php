@@ -93,4 +93,101 @@ function wpdocs_custom_excerpt_length( $length ) {
 }
 add_filter( 'excerpt_length', 'wpdocs_custom_excerpt_length', 999 );
 
+
+// To add additional menu manage_options
+// https://rudrastyh.com/wordpress/creating-options-pages.html
+add_action( 'admin_menu', 'misha_menu_page' );
+
+function misha_menu_page() {
+
+	add_menu_page(
+		'My Page Title', // page <title>Title</title>
+		'My Page', // menu link text
+		'manage_options', // capability to access the page
+		'misha-slug', // page URL slug
+		'misha_page_content', // callback function /w content
+		'dashicons-star-half', // menu icon
+		5 // priority
+	);
+
+}
+
+function misha_page_content(){
+
+  echo '<div class="wrap">
+	<h1>My Page Settings</h1>
+	<form method="post" action="options.php">';
+
+		settings_fields( 'misha_settings' ); // settings group name
+		do_settings_sections( 'misha-slug' ); // just a page slug
+		submit_button();
+
+	echo '</form></div>';
+
+}
+
+add_action( 'admin_init',  'misha_register_setting' );
+
+function misha_register_setting(){
+
+	register_setting(
+		'misha_settings', // settings group name
+		'homepage_text', // option name
+		'sanitize_text_field' // sanitization function
+	);
+
+	add_settings_section(
+		'some_settings_section_id', // section ID
+		'', // title (if needed)
+		'', // callback function (if needed)
+		'misha-slug' // page slug
+	);
+
+	add_settings_field(
+		'homepage_text',
+		'Homepage text',
+		'misha_text_field_html', // function which prints the field
+		'misha-slug', // page slug
+		'some_settings_section_id', // section ID
+		array(
+			'label_for' => 'homepage_text',
+			'class' => 'misha-class', // for <tr> element
+		)
+	);
+
+}
+
+function misha_text_field_html(){
+
+	$text = get_option( 'homepage_text' );
+
+	printf(
+		'%s',
+		esc_attr( $text )
+	);
+
+}
+
+
+add_filter( 'simple_register_option_pages', 'misha_option_page' );
+
+function misha_option_page( $option_pages ) {
+
+	$option_pages[] = array(
+		'id'	=> 'misha_slug',
+		'title' => 'My Page Settings',
+		'menu_name' => 'My page',
+		'fields' => array(
+			array(
+				'id' => 'homepage_text',
+				'label' => 'Homepage text',
+				'type' => 'text',
+			),
+ 		),
+	);
+
+	return $option_pages;
+
+}
+
 ?>

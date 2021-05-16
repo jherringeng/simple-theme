@@ -3,9 +3,8 @@
 
 get_header(); ?>
 
-
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-  <div class="jumbotron" style='background-image: url("<?= get_template_directory_uri()?>/images/banner_leader.jpg"); background-size: cover;'>
+  <div class="jumbotron" style='background-image: url("<?= get_template_directory_uri()?>/images/<?= misha_text_field_html() ?>"); background-size: cover;'>
     <h4 class="display-4"><?php the_title(); ?></h4>
   </div>
 <?php endwhile; ?>
