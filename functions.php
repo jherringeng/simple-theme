@@ -94,6 +94,28 @@ function wpdocs_custom_excerpt_length( $length ) {
 add_filter( 'excerpt_length', 'wpdocs_custom_excerpt_length', 999 );
 
 
+
+function jah_get_banner () {
+
+  $banner_image = misha_text_field_html();
+  $template_directory = get_template_directory_uri();
+
+  if (have_posts()) : while (have_posts()) : the_post();
+    $title = the_title();
+  endwhile;
+  endif;
+
+  $banner_html = <<<HTML
+<div class="jumbotron" style="background-image: url("$template_directory/images/$banner_image"); background-size: cover;">
+<h4 class="display-4">$title</h4>
+</div>
+HTML;
+
+  return $banner_html;
+
+}
+
+
 // To add additional menu manage_options
 // https://rudrastyh.com/wordpress/creating-options-pages.html
 add_action( 'admin_menu', 'misha_menu_page' );
@@ -169,25 +191,6 @@ function misha_text_field_html(){
 }
 
 
-add_filter( 'simple_register_option_pages', 'misha_option_page' );
 
-function misha_option_page( $option_pages ) {
-
-	$option_pages[] = array(
-		'id'	=> 'misha_slug',
-		'title' => 'My Page Settings',
-		'menu_name' => 'My page',
-		'fields' => array(
-			array(
-				'id' => 'homepage_text',
-				'label' => 'Homepage text',
-				'type' => 'text',
-			),
- 		),
-	);
-
-	return $option_pages;
-
-}
 
 ?>
