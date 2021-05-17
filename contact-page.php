@@ -14,12 +14,13 @@ get_header(); ?>
   <div id="ttr_main" class="row">
     <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
       <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-        <h2><?php the_title(); ?></h2>
         <p><?php the_content(__('(more...)')); ?></p>
       </div>
     <?php endwhile; endif; ?>
     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-      <img class="img-fluid rounded" src="<?= get_template_directory_uri() . '/images/profile-jah.jpg' ?>">
+      <div class="contact-img-container">
+        <img class="img-fluid rounded" src="<?= get_template_directory_uri() . '/images/profile-jah.jpg' ?>">
+      </div>
     </div>
     <div>
 

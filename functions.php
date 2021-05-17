@@ -72,7 +72,8 @@ add_action('after_setup_theme', 'jah_theme_support');
 
 function jah_register_styles() {
 
-  wp_enqueue_style('bootstrap-css', get_template_directory_uri() . '/css/bootstrap.css', array());
+  wp_enqueue_style('bootstrap-css', get_template_directory_uri() . '/css/bootstrap.css');
+  wp_enqueue_style('font-awesome', get_template_directory_uri() . '/css/h5p-font-awesome.min.css');
   wp_enqueue_style('simple-theme', get_template_directory_uri() . '/style.css', array(), '1.0', 'all');
 
 }
@@ -94,26 +95,26 @@ function wpdocs_custom_excerpt_length( $length ) {
 add_filter( 'excerpt_length', 'wpdocs_custom_excerpt_length', 999 );
 
 
-
-function jah_get_banner () {
-
-  $banner_image = misha_text_field_html();
-  $template_directory = get_template_directory_uri();
-
-  if (have_posts()) : while (have_posts()) : the_post();
-    $title = the_title();
-  endwhile;
-  endif;
-
-  $banner_html = <<<HTML
-<div class="jumbotron" style="background-image: url("$template_directory/images/$banner_image"); background-size: cover;">
-<h4 class="display-4">$title</h4>
-</div>
-HTML;
-
-  return $banner_html;
-
-}
+//
+// function jah_get_banner () {
+//
+//   $banner_image = misha_text_field_html();
+//   $template_directory = get_template_directory_uri();
+//
+//   if (have_posts()) : while (have_posts()) : the_post();
+//     $title = the_title();
+//   endwhile;
+//   endif;
+//
+// //   $banner_html = <<<HTML
+// // <div class="jumbotron" style="background-image: url("$template_directory/images/$banner_image"); background-size: cover;">
+// // <h4 class="display-4">$title</h4>
+// // </div>
+// // HTML;
+//
+//   return 0;
+//
+// }
 
 
 // To add additional menu manage_options
@@ -136,7 +137,7 @@ function misha_menu_page() {
 
 function misha_page_content(){
 
-  echo '<div class="wrap">
+	echo '<div class="wrap">
 	<h1>My Page Settings</h1>
 	<form method="post" action="options.php">';
 
@@ -189,8 +190,5 @@ function misha_text_field_html(){
 	);
 
 }
-
-
-
 
 ?>

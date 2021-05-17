@@ -1,3 +1,8 @@
+<?php
+/* Template Name: Blog Layout 0 */
+?>
+
+
 <?php get_header(); ?>
 <div class="container">
   <div id="ttr_main" class="row">
